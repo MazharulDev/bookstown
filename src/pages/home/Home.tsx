@@ -1,7 +1,11 @@
+import Header from "../../layouts/Header";
+import HeroSection from "../../layouts/HeroSection";
+
 const Home = () => {
   return (
     <div>
-      <h2>this is home page</h2>
+      <Header />
+      <HeroSection />
     </div>
   );
 };
