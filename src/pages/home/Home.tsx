@@ -1,3 +1,4 @@
+import Footer from "../../layouts/Footer";
 import Header from "../../layouts/Header";
 import HeroSection from "../../layouts/HeroSection";
 
@@ -6,6 +7,7 @@ const Home = () => {
     <div>
       <Header />
       <HeroSection />
+      <Footer />
     </div>
   );
 };

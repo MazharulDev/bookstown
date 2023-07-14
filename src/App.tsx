@@ -1,4 +1,3 @@
-import Header from "./layouts/Header";
 import Home from "./pages/home/Home";
 
 function App() {

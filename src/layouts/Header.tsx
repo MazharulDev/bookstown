@@ -1,7 +1,7 @@
 const Header = () => {
   return (
-    <div>
-      <div className="navbar bg-slate-600 sticky">
+    <div className="sticky top-0 z-30 ">
+      <div className="navbar backdrop-blur ">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -32,15 +32,15 @@ const Header = () => {
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl text-white">
-            BookTown
+          <a className="btn btn-ghost normal-case text-2xl font-extrabold">
+            BooksTown
           </a>
         </div>
 
-        <div className="navbar-end mr-8">
-          <div className="navbar-end hidden lg:flex">
-            <ul className="menu menu-horizontal px-1 text-white">
-              <li>
+        <div className="navbar-end">
+          <div className="navbar-end hidden lg:flex mr-5">
+            <ul className="menu menu-horizontal px-1 ">
+              <li className="border-r-2">
                 <a>All Books</a>
               </li>
               <li>
