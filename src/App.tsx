@@ -1,11 +1,12 @@
+import Header from "./layouts/Header";
 
 function App() {
-
   return (
-    <div>
-    <h2>This react project</h2>
+    <div className="px-5">
+      <Header />
+      <h2>THis is app</h2>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
