@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <div className="sticky top-0 z-30 ">
@@ -44,7 +46,7 @@ const Header = () => {
                 <a>All Books</a>
               </li>
               <li>
-                <a>Create Account</a>
+                <Link to="/signup">Sign up</Link>
               </li>
             </ul>
           </div>
