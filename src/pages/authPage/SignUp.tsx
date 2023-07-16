@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../layouts/Header";
 import { useState } from "react";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { createUser } from "../../redux/features/users/userSlice";
 interface SignupFormInputs {
   email: string;
@@ -15,6 +15,7 @@ interface SignupFormInputs {
 const SignUp = () => {
   const [error, setError] = useState("");
   const { register, handleSubmit } = useForm<SignupFormInputs>();
+  const navigate = useNavigate();
   const disPatch = useAppDispatch();
   const onSubmit = (data: SignupFormInputs) => {
     if (data.password !== data.confirmPassword) {
@@ -23,6 +24,10 @@ const SignUp = () => {
     }
     disPatch(createUser({ email: data.email, password: data.password }));
   };
+  const { user } = useAppSelector((state) => state.user);
+  if (user.email) {
+    navigate("/");
+  }
   return (
     <div>
       <Header />

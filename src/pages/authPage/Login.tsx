@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useForm } from "react-hook-form";
-import { useAppDispatch } from "../../redux/hooks";
-import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "../../layouts/Header";
 import { loginUser } from "../../redux/features/users/userSlice";
 
@@ -18,6 +20,13 @@ const Login = () => {
   const onSubmit = (data: SignupFormInputs) => {
     disPatch(loginUser({ email: data.email, password: data.password }));
   };
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+  const { user } = useAppSelector((state) => state.user);
+  if (user.email) {
+    navigate(from, { replace: true });
+  }
   return (
     <div>
       <Header />

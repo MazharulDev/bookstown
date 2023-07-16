@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+import { Link } from "react-router-dom";
 import { IBooks } from "../../types/globalTypes";
 
 interface IProps {
   book: IBooks;
 }
 const BookCart = ({ book }: IProps) => {
-  const { title, genre, author, publicationDate, img, price } = book;
+  const { id, title, genre, author, img, price } = book;
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center ">
       <div className="container">
@@ -66,7 +68,7 @@ const BookCart = ({ book }: IProps) => {
 
                 <div className="flex space-x-2 text-sm font-medium justify-start mt-3">
                   <button className="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 ">
-                    <span>Details</span>
+                    <Link to={`/books/${id}`}>Details</Link>
                   </button>
                 </div>
               </div>

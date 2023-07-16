@@ -14,8 +14,11 @@ import { IBooks } from "../types/globalTypes";
 const AllBooks = () => {
   let data;
   const [searchData, setSearchData] = useState("");
+  // const [genre, setGenre] = useState("");
   const { data: searchResult } = useGetBookSearchQuery(searchData);
+  // const { data: genreResult } = useGetGenreFindQuery(genre);
   const { data: allBooks } = useGetAllBooksQuery(undefined);
+
   if (searchData) {
     data = searchResult;
   } else {
@@ -39,15 +42,19 @@ const AllBooks = () => {
               <label className="label">
                 <span className="label-text">Select genre</span>
               </label>
-              <select className="select select-bordered">
+              <select
+                // onChange={(e) => setGenre(e.target.value)}
+                className="select select-bordered"
+              >
                 <option disabled selected>
-                  Pick one
+                  Select genre
                 </option>
-                <option>Star Wars</option>
-                <option>Harry Potter</option>
-                <option>Lord of the Rings</option>
-                <option>Planet of the Apes</option>
-                <option>Star Trek</option>
+                <option value="Science fiction">Science fiction</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Detective and Mystery">
+                  Detective and Mystery
+                </option>
+                <option value="Historical Fiction">Historical Fiction</option>
               </select>
             </div>
             <div className="form-control w-full max-w-xs mt-4">
