@@ -19,6 +19,18 @@ export const api = createApi({
     getBookDetails: builder.query({
       query: (id: string) => `/books/details/${id}`,
     }),
+    postReview: builder.mutation({
+      query: ({ id, data }) => ({
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        url: `/books/review/${id}`,
+        method: "POST",
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        body: data,
+      }),
+    }),
+    getReviews: builder.query({
+      query: (id: string) => `/books/review/${id}`,
+    }),
   }),
 });
 
@@ -28,4 +40,6 @@ export const {
   useGetBookSearchQuery,
   useGetGenreFindQuery,
   useGetBookDetailsQuery,
+  usePostReviewMutation,
+  useGetReviewsQuery,
 } = api;
