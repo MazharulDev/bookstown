@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+interface IProps {
+  id: string;
+}
 
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/v1" }),
+  tagTypes: ["reviews"],
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "/books",
@@ -27,9 +32,26 @@ export const api = createApi({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         body: data,
       }),
+      invalidatesTags: ["reviews"],
     }),
     getReviews: builder.query({
       query: (id: string) => `/books/review/${id}`,
+      providesTags: ["reviews"],
+    }),
+    postBook: builder.mutation({
+      query: ({ data }) => ({
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        url: `/books`,
+        method: "POST",
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        body: data,
+      }),
+    }),
+    deleteBook: builder.mutation({
+      query: ({ id }) => ({
+        url: `/books/book/${id}`,
+        method: "DELETE",
+      }),
     }),
   }),
 });
@@ -42,4 +64,6 @@ export const {
   useGetBookDetailsQuery,
   usePostReviewMutation,
   useGetReviewsQuery,
+  usePostBookMutation,
+  useDeleteBookMutation,
 } = api;

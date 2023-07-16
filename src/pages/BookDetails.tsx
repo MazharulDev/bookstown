@@ -1,19 +1,41 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useParams } from "react-router-dom";
-import { useGetBookDetailsQuery } from "../redux/api/apiSlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  useDeleteBookMutation,
+  useGetBookDetailsQuery,
+} from "../redux/api/apiSlice";
 import Review from "../components/Books/Review";
 import { useAppSelector } from "../redux/hooks";
+import { toast } from "react-toastify";
+
+interface IProps {
+  id: string;
+}
 
 const BookDetails = () => {
+  const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
   const { id } = useParams();
   const { data } = useGetBookDetailsQuery(id as string);
+  const [deleteBook] = useDeleteBookMutation();
+  const handleDelete = (id: IProps) => {
+    deleteBook({ id });
+    toast.success("Book delete successfully");
+    navigate("/");
+  };
   const book = data?.data[0];
   return (
     <div className="container mx-auto">
+      <div className="flex justify-end">
+        <Link to="/create-book" className="btn btn-sm btn-success">
+          Add New Book
+        </Link>
+      </div>
       <div className="flex justify-center items-center">
         <div className="relative min-h-screen flex flex-col items-center justify-center ">
           <h2 className="text-4xl font-bold my-5">{book?.title}</h2>
@@ -82,13 +104,16 @@ const BookDetails = () => {
 
                     <div className="flex space-x-2 text-sm font-medium justify-start mt-3"></div>
                   </div>
-                  {user.email && (
+                  {user.email === book?.user && (
                     <div className="flex justify-end items-center gap-4">
-                      <button className="btn btn-xs btn-success">
-                        Add New Book
-                      </button>
                       <button className="btn btn-xs btn-warning">
                         Edit book
+                      </button>
+                      <button
+                        onClick={() => handleDelete(book?._id)}
+                        className="btn btn-xs btn-error"
+                      >
+                        Delete
                       </button>
                     </div>
                   )}
