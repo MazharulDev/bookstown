@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../redux/hooks";
 import { Link } from "react-router-dom";
@@ -13,7 +13,6 @@ interface SignupFormInputs {
   password: string;
 }
 const Login = () => {
-  const [error, setError] = useState("");
   const { register, handleSubmit } = useForm<SignupFormInputs>();
   const disPatch = useAppDispatch();
   const onSubmit = (data: SignupFormInputs) => {
@@ -44,7 +43,6 @@ const Login = () => {
             required
           />
           <br />
-          <p className="text-red-600">{error}</p>
           <input
             className=" px-3 py-1 bg-transparent border-2 border-blue-400 hover:bg-blue-400 hover:text-white rounded mt-5 duration-200 cursor-pointer w-full"
             type="submit"

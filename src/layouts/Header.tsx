@@ -58,7 +58,7 @@ const Header = () => {
           <div className="navbar-end hidden lg:flex mr-5">
             <ul className="menu menu-horizontal px-1 ">
               <li>
-                <a>All Books</a>
+                <Link to="/books">All Books</Link>
               </li>
               {!user?.email && (
                 <li>

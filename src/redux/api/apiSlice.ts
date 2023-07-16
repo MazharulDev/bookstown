@@ -7,7 +7,14 @@ export const api = createApi({
     getBooks: builder.query({
       query: () => "/books",
     }),
+    getAllBooks: builder.query({
+      query: () => "/books/all",
+    }),
+    getBookSearch: builder.query({
+      query: (value: string) => `/books?searchTerm=${value}`,
+    }),
   }),
 });
 
-export const { useGetBooksQuery } = api;
+export const { useGetBooksQuery, useGetAllBooksQuery, useGetBookSearchQuery } =
+  api;

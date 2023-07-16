@@ -1,9 +1,9 @@
 import { onAuthStateChanged } from "firebase/auth";
-import Home from "./pages/home/Home";
 import { auth } from "./lib/firebase";
 import { useAppDispatch } from "./redux/hooks";
 import { setLoading, setUser } from "./redux/features/users/userSlice";
 import { useEffect } from "react";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   const disPatch = useAppDispatch();
@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div>
-      <Home />
+      <MainLayout />
     </div>
   );
 }
