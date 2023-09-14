@@ -1,10 +1,14 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useForm } from "react-hook-form";
 import { useAppSelector } from "../redux/hooks";
-import { usePostBookMutation } from "../redux/api/apiSlice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import {
+  useGetBookDetailsQuery,
+  useUpdateBookMutation,
+} from "../redux/api/apiSlice";
+import { useParams } from "react-router-dom";
 
 interface IAddBook {
   title: string;
@@ -18,12 +22,13 @@ interface IAddBook {
   reviews?: [];
 }
 
-const AddBook = () => {
-  const navigate = useNavigate();
+const EditBook = () => {
+  const { id } = useParams();
   const { user } = useAppSelector((state) => state.user);
-  const [postBook] = usePostBookMutation();
+  const [updateBook] = useUpdateBookMutation();
+  const { data } = useGetBookDetailsQuery(id as string);
   const { register, handleSubmit, reset } = useForm<IAddBook>();
-  const onSubmit = (data: IAddBook) => {
+  const onSubmit = (data: IAddBook): void => {
     const options = {
       data: {
         title: data.title,
@@ -37,16 +42,15 @@ const AddBook = () => {
         reviews: [],
       },
     };
-    postBook(options);
-
-    toast.success("Book Added Successfully");
-
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    updateBook({ id, options });
+    toast("Book update Successfully");
     reset();
-    navigate("/books");
   };
+  const book = data?.data[0];
   return (
     <div>
-      <h2 className="text-center text-3xl font-bold my-8">Add Book</h2>
+      <h2 className="text-center text-3xl font-bold my-8">Update Book</h2>
       <div className="flex justify-center">
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -59,6 +63,7 @@ const AddBook = () => {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
+                defaultValue={book?.title}
               />
             </div>
             <div className="form-control w-full max-w-xs">
@@ -70,6 +75,7 @@ const AddBook = () => {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
+                defaultValue={book?.author}
               />
             </div>
             <div className="form-control w-full max-w-xs">
@@ -81,6 +87,7 @@ const AddBook = () => {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
+                defaultValue={book?.genre}
               />
             </div>
             <div className="form-control w-full max-w-xs">
@@ -94,6 +101,7 @@ const AddBook = () => {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
+                defaultValue={book?.publicationDate}
               />
             </div>
             <div className="form-control w-full max-w-xs">
@@ -107,6 +115,7 @@ const AddBook = () => {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
+                defaultValue={book?.img}
               />
             </div>
             <div className="form-control w-full max-w-xs">
@@ -120,6 +129,7 @@ const AddBook = () => {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
+                defaultValue={book?.price}
               />
             </div>
             <div className="form-control">
@@ -132,6 +142,7 @@ const AddBook = () => {
                 })}
                 className="textarea textarea-bordered h-24"
                 placeholder="Bio"
+                defaultValue={book?.details}
               ></textarea>
             </div>
             <input
@@ -146,4 +157,4 @@ const AddBook = () => {
   );
 };
 
-export default AddBook;
+export default EditBook;
