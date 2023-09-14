@@ -30,8 +30,8 @@ const AllBooks = () => {
   }
   return (
     <div>
-      <div className="container grid grid-cols-5 mx-auto">
-        <div className="col-span-1">
+      <div className="container lg:grid grid-cols-5 mx-auto">
+        <div className="col-span-1 ml-5 lg:ml-0">
           <h2 className="text-center text-3xl font-bold my-8">Filter Books</h2>
           <div className="form-control w-full max-w-xs">
             <input
