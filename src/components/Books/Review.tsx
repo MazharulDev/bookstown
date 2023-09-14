@@ -8,6 +8,7 @@ import {
   useGetReviewsQuery,
   usePostReviewMutation,
 } from "../../redux/api/apiSlice";
+import { BiCommentDetail } from "react-icons/bi";
 interface IProp {
   id: string;
 }
@@ -38,6 +39,17 @@ const Review = ({ id }: IProp) => {
   };
   return (
     <div className="">
+      <h2 className="text-2xl text-center mt-5 font-bold ">Book Reviews</h2>
+      <div className="container mx-auto mt-5">
+        {reviewAll?.map((review: string, index: number) => (
+          <div className="bg-slate-200 p-3 mt-2 rounded-lg" key={index}>
+            <div className="flex justify-center items-center gap-5">
+              <BiCommentDetail />
+              <p>{review}</p>
+            </div>
+          </div>
+        ))}
+      </div>
       <div>
         <h2 className="text-center text-2xl my-5">Add Review</h2>
         <form
@@ -53,13 +65,6 @@ const Review = ({ id }: IProp) => {
             Submit
           </button>
         </form>
-      </div>
-      <div className="container mx-auto">
-        {reviewAll?.map((review: string, index: number) => (
-          <div key={index}>
-            <p>{review}</p>
-          </div>
-        ))}
       </div>
     </div>
   );

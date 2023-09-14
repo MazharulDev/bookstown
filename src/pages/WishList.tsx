@@ -28,15 +28,21 @@ const WishList = () => {
                 <th>Author</th>
               </tr>
             </thead>
-            <tbody>
-              {myWishBooks?.map((data: Partial<IFavorite>) => (
-                <tr key={data?.id}>
-                  <td>{data?.bookId?.title}</td>
-                  <td>{data?.bookId?.genre}</td>
-                  <td>{data?.bookId?.author}</td>
-                </tr>
-              ))}
-            </tbody>
+            {myWishBooks?.length <= 0 ? (
+              <p className="text-center mt-3">
+                You have not added any data to the wish list
+              </p>
+            ) : (
+              <tbody>
+                {myWishBooks?.map((data: Partial<IFavorite>) => (
+                  <tr key={data?.id}>
+                    <td>{data?.bookId?.title}</td>
+                    <td>{data?.bookId?.genre}</td>
+                    <td>{data?.bookId?.author}</td>
+                  </tr>
+                ))}
+              </tbody>
+            )}
           </table>
         </div>
       </div>
